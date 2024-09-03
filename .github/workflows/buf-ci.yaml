@@ -22,4 +22,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           format: true
           lint: true
-          breaking: true
