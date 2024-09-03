@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package user.v1;
+package users;
 
 import "google/protobuf/timestamp.proto";
 
@@ -24,6 +24,6 @@ message CreateUserRequest {
   optional string username = 5;
 }
 
-service UserService {
+service UsersService {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
 }
