@@ -23,5 +23,5 @@ message GetByTelegramIDResponse {
 }
 
 message GetByTelegramIDRequest {
-  uint64 telegram_id = 1 [(validate.rules).uint64 = {gt: 0}];
+  int64 telegram_id = 1 [(validate.rules).uint64 = {gt: 0}];
 }
