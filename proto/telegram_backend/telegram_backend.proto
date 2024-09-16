@@ -2,14 +2,33 @@ syntax = "proto3";
 
 package telegram_backend;
 
+import "validate/validate.proto";
+
 service TelegramBackendService {
   rpc AuthByInitData(AuthByInitDataRequest) returns (AuthByInitDataResponse);
+  rpc AddBot(AddBotRequest) returns (AddBotResponse);
 }
 
+message Bot {
+  int64 id = 1;
+  string first_name = 2;
+  string username = 3;
+}
+
+//AuthByInitData --------------------------------------------------------------------
 message AuthByInitDataRequest {
   string init_data = 1;
 }
 
 message AuthByInitDataResponse {
   string jwt = 1;
+}
+
+//AddBot ----------------------------------------------------------------------------
+message AddBotRequest {
+  string token = 1 [(validate.rules).string = {len: 44}];
+}
+
+message AddBotResponse {
+  Bot result = 1;
 }
