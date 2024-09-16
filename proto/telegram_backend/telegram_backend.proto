@@ -3,14 +3,14 @@ syntax = "proto3";
 package telegram_backend;
 
 service TelegramBackendService {
-  rpc AuthByInitDataString(AuthByInitDataStringRequest) returns (AuthByInitDataStringResponse);
+  rpc AuthByInitData(AuthByInitDataRequest) returns (AuthByInitDataResponse);
 }
 
 
-message AuthByInitDataStringRequest {
+message AuthByInitDataRequest {
   string init_data = 1;
 }
 
-message AuthByInitDataStringResponse {
+message AuthByInitDataResponse {
   string jwt = 1;
 }
