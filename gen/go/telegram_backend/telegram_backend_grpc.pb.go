@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	TelegramBackendService_AuthByInitData_FullMethodName = "/telegram_backend.TelegramBackendService/AuthByInitData"
+	TelegramBackendService_AddBot_FullMethodName         = "/telegram_backend.TelegramBackendService/AddBot"
 )
 
 // TelegramBackendServiceClient is the client API for TelegramBackendService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TelegramBackendServiceClient interface {
 	AuthByInitData(ctx context.Context, in *AuthByInitDataRequest, opts ...grpc.CallOption) (*AuthByInitDataResponse, error)
+	AddBot(ctx context.Context, in *AddBotRequest, opts ...grpc.CallOption) (*AddBotResponse, error)
 }
 
 type telegramBackendServiceClient struct {
@@ -47,11 +49,22 @@ func (c *telegramBackendServiceClient) AuthByInitData(ctx context.Context, in *A
 	return out, nil
 }
 
+func (c *telegramBackendServiceClient) AddBot(ctx context.Context, in *AddBotRequest, opts ...grpc.CallOption) (*AddBotResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddBotResponse)
+	err := c.cc.Invoke(ctx, TelegramBackendService_AddBot_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TelegramBackendServiceServer is the server API for TelegramBackendService service.
 // All implementations must embed UnimplementedTelegramBackendServiceServer
 // for forward compatibility.
 type TelegramBackendServiceServer interface {
 	AuthByInitData(context.Context, *AuthByInitDataRequest) (*AuthByInitDataResponse, error)
+	AddBot(context.Context, *AddBotRequest) (*AddBotResponse, error)
 	mustEmbedUnimplementedTelegramBackendServiceServer()
 }
 
@@ -64,6 +77,9 @@ type UnimplementedTelegramBackendServiceServer struct{}
 
 func (UnimplementedTelegramBackendServiceServer) AuthByInitData(context.Context, *AuthByInitDataRequest) (*AuthByInitDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AuthByInitData not implemented")
+}
+func (UnimplementedTelegramBackendServiceServer) AddBot(context.Context, *AddBotRequest) (*AddBotResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddBot not implemented")
 }
 func (UnimplementedTelegramBackendServiceServer) mustEmbedUnimplementedTelegramBackendServiceServer() {
 }
@@ -105,6 +121,24 @@ func _TelegramBackendService_AuthByInitData_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TelegramBackendService_AddBot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddBotRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TelegramBackendServiceServer).AddBot(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TelegramBackendService_AddBot_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TelegramBackendServiceServer).AddBot(ctx, req.(*AddBotRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TelegramBackendService_ServiceDesc is the grpc.ServiceDesc for TelegramBackendService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -115,6 +149,10 @@ var TelegramBackendService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AuthByInitData",
 			Handler:    _TelegramBackendService_AuthByInitData_Handler,
+		},
+		{
+			MethodName: "AddBot",
+			Handler:    _TelegramBackendService_AddBot_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

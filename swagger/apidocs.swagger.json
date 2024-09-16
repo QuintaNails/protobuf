@@ -19,6 +19,38 @@
     "application/json"
   ],
   "paths": {
+    "/telegram_backend.TelegramBackendService/AddBot": {
+      "post": {
+        "operationId": "TelegramBackendService_AddBot",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/telegram_backendAddBotResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/telegram_backendAddBotRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TelegramBackendService"
+        ]
+      }
+    },
     "/telegram_backend.TelegramBackendService/AuthByInitData": {
       "post": {
         "operationId": "TelegramBackendService_AuthByInitData",
@@ -113,18 +145,51 @@
         }
       }
     },
+    "telegram_backendAddBotRequest": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "AddBot ----------------------------------------------------------------------------"
+    },
+    "telegram_backendAddBotResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/telegram_backendBot"
+        }
+      }
+    },
     "telegram_backendAuthByInitDataRequest": {
       "type": "object",
       "properties": {
         "initData": {
           "type": "string"
         }
-      }
+      },
+      "title": "AuthByInitData --------------------------------------------------------------------"
     },
     "telegram_backendAuthByInitDataResponse": {
       "type": "object",
       "properties": {
         "jwt": {
+          "type": "string"
+        }
+      }
+    },
+    "telegram_backendBot": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "username": {
           "type": "string"
         }
       }

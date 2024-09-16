@@ -35,6 +35,110 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on Bot with the rules defined in the proto
+// definition for this message. If any rules are violated, the first error
+// encountered is returned, or nil if there are no violations.
+func (m *Bot) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Bot with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in BotMultiError, or nil if none found.
+func (m *Bot) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Bot) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for FirstName
+
+	// no validation rules for Username
+
+	if len(errors) > 0 {
+		return BotMultiError(errors)
+	}
+
+	return nil
+}
+
+// BotMultiError is an error wrapping multiple validation errors returned by
+// Bot.ValidateAll() if the designated constraints aren't met.
+type BotMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BotMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BotMultiError) AllErrors() []error { return m }
+
+// BotValidationError is the validation error returned by Bot.Validate if the
+// designated constraints aren't met.
+type BotValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BotValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BotValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BotValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BotValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BotValidationError) ErrorName() string { return "BotValidationError" }
+
+// Error satisfies the builtin error interface
+func (e BotValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBot.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BotValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BotValidationError{}
+
 // Validate checks the field values on AuthByInitDataRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -242,3 +346,244 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = AuthByInitDataResponseValidationError{}
+
+// Validate checks the field values on AddBotRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *AddBotRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddBotRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in AddBotRequestMultiError, or
+// nil if none found.
+func (m *AddBotRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddBotRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetToken()) != 44 {
+		err := AddBotRequestValidationError{
+			field:  "Token",
+			reason: "value length must be 44 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+
+	}
+
+	if len(errors) > 0 {
+		return AddBotRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddBotRequestMultiError is an error wrapping multiple validation errors
+// returned by AddBotRequest.ValidateAll() if the designated constraints
+// aren't met.
+type AddBotRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddBotRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddBotRequestMultiError) AllErrors() []error { return m }
+
+// AddBotRequestValidationError is the validation error returned by
+// AddBotRequest.Validate if the designated constraints aren't met.
+type AddBotRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddBotRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddBotRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddBotRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddBotRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddBotRequestValidationError) ErrorName() string { return "AddBotRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e AddBotRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddBotRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddBotRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddBotRequestValidationError{}
+
+// Validate checks the field values on AddBotResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *AddBotResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddBotResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in AddBotResponseMultiError,
+// or nil if none found.
+func (m *AddBotResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddBotResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetResult()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AddBotResponseValidationError{
+					field:  "Result",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AddBotResponseValidationError{
+					field:  "Result",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetResult()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AddBotResponseValidationError{
+				field:  "Result",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return AddBotResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddBotResponseMultiError is an error wrapping multiple validation errors
+// returned by AddBotResponse.ValidateAll() if the designated constraints
+// aren't met.
+type AddBotResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddBotResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddBotResponseMultiError) AllErrors() []error { return m }
+
+// AddBotResponseValidationError is the validation error returned by
+// AddBotResponse.Validate if the designated constraints aren't met.
+type AddBotResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddBotResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddBotResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddBotResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddBotResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddBotResponseValidationError) ErrorName() string { return "AddBotResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e AddBotResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddBotResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddBotResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddBotResponseValidationError{}
