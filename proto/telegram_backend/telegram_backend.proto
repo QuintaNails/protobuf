@@ -6,7 +6,6 @@ service TelegramBackendService {
   rpc AuthByInitData(AuthByInitDataRequest) returns (AuthByInitDataResponse);
 }
 
-
 message AuthByInitDataRequest {
   string init_data = 1;
 }
