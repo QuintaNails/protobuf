@@ -1,10 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "users/users.proto",
+    "title": "telegram_backend/telegram_backend.proto",
     "version": "version not set"
   },
   "tags": [
+    {
+      "name": "TelegramBackendService"
+    },
     {
       "name": "UsersService"
     }
@@ -16,14 +19,14 @@
     "application/json"
   ],
   "paths": {
-    "/users.UsersService/CreateUser": {
+    "/telegram_backend.TelegramBackendService/AuthByInitData": {
       "post": {
-        "operationId": "UsersService_CreateUser",
+        "operationId": "TelegramBackendService_AuthByInitData",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/usersCreateUserResponse"
+              "$ref": "#/definitions/telegram_backendAuthByInitDataResponse"
             }
           },
           "default": {
@@ -39,7 +42,39 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/usersCreateUserRequest"
+              "$ref": "#/definitions/telegram_backendAuthByInitDataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TelegramBackendService"
+        ]
+      }
+    },
+    "/users.UsersService/GetByTelegramID": {
+      "post": {
+        "operationId": "UsersService_GetByTelegramID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/usersGetByTelegramIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/usersGetByTelegramIDRequest"
             }
           }
         ],
@@ -78,25 +113,32 @@
         }
       }
     },
-    "usersCreateUserRequest": {
+    "telegram_backendAuthByInitDataRequest": {
       "type": "object",
       "properties": {
-        "telegramId": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "username": {
+        "initData": {
           "type": "string"
         }
       }
     },
-    "usersCreateUserResponse": {
+    "telegram_backendAuthByInitDataResponse": {
+      "type": "object",
+      "properties": {
+        "jwt": {
+          "type": "string"
+        }
+      }
+    },
+    "usersGetByTelegramIDRequest": {
+      "type": "object",
+      "properties": {
+        "telegramId": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "usersGetByTelegramIDResponse": {
       "type": "object",
       "properties": {
         "result": {
