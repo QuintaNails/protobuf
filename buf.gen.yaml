@@ -6,10 +6,6 @@ managed:
     - file_option: go_package_prefix
       value: github.com/quinta-nails/protobuf
 plugins:
-  - remote: buf.build/bufbuild/validate-go
-    out: gen/go
-    opt:
-      - paths=source_relative
   - remote: buf.build/protocolbuffers/go
     out: gen/go
     opt:

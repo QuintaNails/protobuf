@@ -3,7 +3,6 @@ syntax = "proto3";
 package users;
 
 import "google/protobuf/timestamp.proto";
-import "validate/validate.proto";
 
 service UsersService {
   rpc GetByTelegramID(GetByTelegramIDRequest) returns (GetByTelegramIDResponse);
@@ -23,5 +22,5 @@ message GetByTelegramIDResponse {
 }
 
 message GetByTelegramIDRequest {
-  int64 telegram_id = 1 [(validate.rules).int64 = {gt: 0}];
+  int64 telegram_id = 1;
 }
