@@ -17,6 +17,15 @@ jobs:
       with:
         setup_only: true
 
+    - name: Install Protoc Gen Go
+      run: go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+
+    - name: Install Protoc Gen Go GRPC
+      run: go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+    - name: Install Protoc Gen Go GRPC Gateway
+      run: go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
+
     - name: Generate code
       run: buf generate
 
