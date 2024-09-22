@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package telegram_backend;
+package bots;
 
 import "buf/validate/validate.proto";
 
-service TelegramBackendService {
+service TelegramBotsService {
   rpc AuthByInitData(AuthByInitDataRequest) returns (AuthByInitDataResponse);
   rpc AddBot(AddBotRequest) returns (AddBotResponse);
 }
