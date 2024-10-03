@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	TelegramBotsService_AuthByInitData_FullMethodName = "/bots.TelegramBotsService/AuthByInitData"
 	TelegramBotsService_AddBot_FullMethodName         = "/bots.TelegramBotsService/AddBot"
+	TelegramBotsService_SetupBot_FullMethodName       = "/bots.TelegramBotsService/SetupBot"
 )
 
 // TelegramBotsServiceClient is the client API for TelegramBotsService service.
@@ -29,6 +30,7 @@ const (
 type TelegramBotsServiceClient interface {
 	AuthByInitData(ctx context.Context, in *AuthByInitDataRequest, opts ...grpc.CallOption) (*AuthByInitDataResponse, error)
 	AddBot(ctx context.Context, in *AddBotRequest, opts ...grpc.CallOption) (*AddBotResponse, error)
+	SetupBot(ctx context.Context, in *SetupBotRequest, opts ...grpc.CallOption) (*SetupBotResponse, error)
 }
 
 type telegramBotsServiceClient struct {
@@ -59,12 +61,23 @@ func (c *telegramBotsServiceClient) AddBot(ctx context.Context, in *AddBotReques
 	return out, nil
 }
 
+func (c *telegramBotsServiceClient) SetupBot(ctx context.Context, in *SetupBotRequest, opts ...grpc.CallOption) (*SetupBotResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetupBotResponse)
+	err := c.cc.Invoke(ctx, TelegramBotsService_SetupBot_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TelegramBotsServiceServer is the server API for TelegramBotsService service.
 // All implementations must embed UnimplementedTelegramBotsServiceServer
 // for forward compatibility.
 type TelegramBotsServiceServer interface {
 	AuthByInitData(context.Context, *AuthByInitDataRequest) (*AuthByInitDataResponse, error)
 	AddBot(context.Context, *AddBotRequest) (*AddBotResponse, error)
+	SetupBot(context.Context, *SetupBotRequest) (*SetupBotResponse, error)
 	mustEmbedUnimplementedTelegramBotsServiceServer()
 }
 
@@ -80,6 +93,9 @@ func (UnimplementedTelegramBotsServiceServer) AuthByInitData(context.Context, *A
 }
 func (UnimplementedTelegramBotsServiceServer) AddBot(context.Context, *AddBotRequest) (*AddBotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddBot not implemented")
+}
+func (UnimplementedTelegramBotsServiceServer) SetupBot(context.Context, *SetupBotRequest) (*SetupBotResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetupBot not implemented")
 }
 func (UnimplementedTelegramBotsServiceServer) mustEmbedUnimplementedTelegramBotsServiceServer() {}
 func (UnimplementedTelegramBotsServiceServer) testEmbeddedByValue()                             {}
@@ -138,6 +154,24 @@ func _TelegramBotsService_AddBot_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TelegramBotsService_SetupBot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetupBotRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TelegramBotsServiceServer).SetupBot(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TelegramBotsService_SetupBot_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TelegramBotsServiceServer).SetupBot(ctx, req.(*SetupBotRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TelegramBotsService_ServiceDesc is the grpc.ServiceDesc for TelegramBotsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +186,10 @@ var TelegramBotsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddBot",
 			Handler:    _TelegramBotsService_AddBot_Handler,
+		},
+		{
+			MethodName: "SetupBot",
+			Handler:    _TelegramBotsService_SetupBot_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
