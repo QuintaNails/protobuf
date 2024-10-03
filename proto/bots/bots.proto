@@ -7,6 +7,7 @@ import "buf/validate/validate.proto";
 service TelegramBotsService {
   rpc AuthByInitData(AuthByInitDataRequest) returns (AuthByInitDataResponse);
   rpc AddBot(AddBotRequest) returns (AddBotResponse);
+  rpc SetupBot(SetupBotRequest) returns (SetupBotResponse);
 }
 
 message Bot {
@@ -32,3 +33,10 @@ message AddBotRequest {
 message AddBotResponse {
   Bot result = 1;
 }
+
+//SetupBot ----------------------------------------------------------------------------
+message SetupBotRequest {
+  int64 id = 1  [(buf.validate.field).int64.gt = 0];
+}
+
+message SetupBotResponse {}
