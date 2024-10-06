@@ -39,4 +39,6 @@ message SetupBotRequest {
   int64 id = 1  [(buf.validate.field).int64.gt = 0];
 }
 
-message SetupBotResponse {}
+message SetupBotResponse {
+  string url = 1;
+}
