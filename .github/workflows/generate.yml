@@ -42,6 +42,9 @@ jobs:
     - name: Add Go bin to PATH
       run: echo "${HOME}/go/bin" >> $GITHUB_PATH
 
+    - name: Add npm bin to PATH
+      run: echo "${HOME}/.npm-global/bin" >> $GITHUB_PATH
+
     - name: Generate code
       run: buf generate
 
