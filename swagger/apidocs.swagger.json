@@ -1,12 +1,15 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "telegram_backend/telegram_backend.proto",
+    "title": "bots/bots.proto",
     "version": "version not set"
   },
   "tags": [
     {
-      "name": "TelegramBackendService"
+      "name": "TelegramBotsService"
+    },
+    {
+      "name": "CompaniesService"
     },
     {
       "name": "UsersService"
@@ -19,14 +22,14 @@
     "application/json"
   ],
   "paths": {
-    "/telegram_backend.TelegramBackendService/AddBot": {
+    "/bots.TelegramBotsService/AddBot": {
       "post": {
-        "operationId": "TelegramBackendService_AddBot",
+        "operationId": "TelegramBotsService_AddBot",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/telegram_backendAddBotResponse"
+              "$ref": "#/definitions/botsAddBotResponse"
             }
           },
           "default": {
@@ -42,23 +45,23 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/telegram_backendAddBotRequest"
+              "$ref": "#/definitions/botsAddBotRequest"
             }
           }
         ],
         "tags": [
-          "TelegramBackendService"
+          "TelegramBotsService"
         ]
       }
     },
-    "/telegram_backend.TelegramBackendService/AuthByInitData": {
+    "/bots.TelegramBotsService/SetupBot": {
       "post": {
-        "operationId": "TelegramBackendService_AuthByInitData",
+        "operationId": "TelegramBotsService_SetupBot",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/telegram_backendAuthByInitDataResponse"
+              "$ref": "#/definitions/botsSetupBotResponse"
             }
           },
           "default": {
@@ -74,12 +77,44 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/telegram_backendAuthByInitDataRequest"
+              "$ref": "#/definitions/botsSetupBotRequest"
             }
           }
         ],
         "tags": [
-          "TelegramBackendService"
+          "TelegramBotsService"
+        ]
+      }
+    },
+    "/companies.CompaniesService/ReserveFromBot": {
+      "post": {
+        "operationId": "CompaniesService_ReserveFromBot",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/companiesReserveFromBotResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/companiesReserveFromBotRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CompaniesService"
         ]
       }
     },
@@ -117,6 +152,73 @@
     }
   },
   "definitions": {
+    "botsAddBotRequest": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "AddBot ----------------------------------------------------------------------------"
+    },
+    "botsAddBotResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/botsBot"
+        }
+      }
+    },
+    "botsBot": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "botsSetupBotRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "SetupBot ----------------------------------------------------------------------------"
+    },
+    "botsSetupBotResponse": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "companiesReserveFromBotRequest": {
+      "type": "object",
+      "properties": {
+        "botId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "datetime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "ReserveFromBot ----------------------------------------------------------------------------"
+    },
+    "companiesReserveFromBotResponse": {
+      "type": "object"
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -142,55 +244,6 @@
             "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
-        }
-      }
-    },
-    "telegram_backendAddBotRequest": {
-      "type": "object",
-      "properties": {
-        "token": {
-          "type": "string"
-        }
-      },
-      "title": "AddBot ----------------------------------------------------------------------------"
-    },
-    "telegram_backendAddBotResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "$ref": "#/definitions/telegram_backendBot"
-        }
-      }
-    },
-    "telegram_backendAuthByInitDataRequest": {
-      "type": "object",
-      "properties": {
-        "initData": {
-          "type": "string"
-        }
-      },
-      "title": "AuthByInitData --------------------------------------------------------------------"
-    },
-    "telegram_backendAuthByInitDataResponse": {
-      "type": "object",
-      "properties": {
-        "jwt": {
-          "type": "string"
-        }
-      }
-    },
-    "telegram_backendBot": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "int64"
-        },
-        "firstName": {
-          "type": "string"
-        },
-        "username": {
-          "type": "string"
         }
       }
     },
