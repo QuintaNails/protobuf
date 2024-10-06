@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package companies;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+service CompaniesService {
+  rpc ReserveFromBot(ReserveFromBotRequest) returns (ReserveFromBotResponse);
+}
+
+//ReserveFromBot ----------------------------------------------------------------------------
+message ReserveFromBotRequest {
+  int64 bot_id = 1  [(buf.validate.field).int64.gt = 0];
+  google.protobuf.Timestamp datetime = 2  [(buf.validate.field).timestamp.gt_now = true];
+}
+
+message ReserveFromBotResponse {
+}
