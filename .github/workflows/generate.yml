@@ -36,11 +36,17 @@ jobs:
     - name: Install Protoc Gen Go GRPC Gateway
       run: go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
 
+    - name: Install swagger-codegen
+      run: npm install -g swagger-codegen
+
     - name: Add Go bin to PATH
       run: echo "${HOME}/go/bin" >> $GITHUB_PATH
 
     - name: Generate code
       run: buf generate
+
+    - name: Generate client code
+      run: swagger-codegen generate -i ./swagger/apidocs.swagger.json -l javascript -o ./client
 
     - name: Check for changes
       id: check-changes
