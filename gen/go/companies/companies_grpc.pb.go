@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CompaniesService_ReserveFromBot_FullMethodName = "/companies.CompaniesService/ReserveFromBot"
+	CompaniesService_Reserve_FullMethodName = "/companies.CompaniesService/Reserve"
 )
 
 // CompaniesServiceClient is the client API for CompaniesService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CompaniesServiceClient interface {
-	ReserveFromBot(ctx context.Context, in *ReserveFromBotRequest, opts ...grpc.CallOption) (*ReserveFromBotResponse, error)
+	Reserve(ctx context.Context, in *ReserveRequest, opts ...grpc.CallOption) (*ReserveResponse, error)
 }
 
 type companiesServiceClient struct {
@@ -37,10 +37,10 @@ func NewCompaniesServiceClient(cc grpc.ClientConnInterface) CompaniesServiceClie
 	return &companiesServiceClient{cc}
 }
 
-func (c *companiesServiceClient) ReserveFromBot(ctx context.Context, in *ReserveFromBotRequest, opts ...grpc.CallOption) (*ReserveFromBotResponse, error) {
+func (c *companiesServiceClient) Reserve(ctx context.Context, in *ReserveRequest, opts ...grpc.CallOption) (*ReserveResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ReserveFromBotResponse)
-	err := c.cc.Invoke(ctx, CompaniesService_ReserveFromBot_FullMethodName, in, out, cOpts...)
+	out := new(ReserveResponse)
+	err := c.cc.Invoke(ctx, CompaniesService_Reserve_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (c *companiesServiceClient) ReserveFromBot(ctx context.Context, in *Reserve
 // All implementations must embed UnimplementedCompaniesServiceServer
 // for forward compatibility.
 type CompaniesServiceServer interface {
-	ReserveFromBot(context.Context, *ReserveFromBotRequest) (*ReserveFromBotResponse, error)
+	Reserve(context.Context, *ReserveRequest) (*ReserveResponse, error)
 	mustEmbedUnimplementedCompaniesServiceServer()
 }
 
@@ -62,8 +62,8 @@ type CompaniesServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedCompaniesServiceServer struct{}
 
-func (UnimplementedCompaniesServiceServer) ReserveFromBot(context.Context, *ReserveFromBotRequest) (*ReserveFromBotResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ReserveFromBot not implemented")
+func (UnimplementedCompaniesServiceServer) Reserve(context.Context, *ReserveRequest) (*ReserveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Reserve not implemented")
 }
 func (UnimplementedCompaniesServiceServer) mustEmbedUnimplementedCompaniesServiceServer() {}
 func (UnimplementedCompaniesServiceServer) testEmbeddedByValue()                          {}
@@ -86,20 +86,20 @@ func RegisterCompaniesServiceServer(s grpc.ServiceRegistrar, srv CompaniesServic
 	s.RegisterService(&CompaniesService_ServiceDesc, srv)
 }
 
-func _CompaniesService_ReserveFromBot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReserveFromBotRequest)
+func _CompaniesService_Reserve_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReserveRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CompaniesServiceServer).ReserveFromBot(ctx, in)
+		return srv.(CompaniesServiceServer).Reserve(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: CompaniesService_ReserveFromBot_FullMethodName,
+		FullMethod: CompaniesService_Reserve_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CompaniesServiceServer).ReserveFromBot(ctx, req.(*ReserveFromBotRequest))
+		return srv.(CompaniesServiceServer).Reserve(ctx, req.(*ReserveRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -112,8 +112,8 @@ var CompaniesService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*CompaniesServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ReserveFromBot",
-			Handler:    _CompaniesService_ReserveFromBot_Handler,
+			MethodName: "Reserve",
+			Handler:    _CompaniesService_Reserve_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
