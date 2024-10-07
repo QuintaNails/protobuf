@@ -6,14 +6,16 @@ import "buf/validate/validate.proto";
 import "google/protobuf/timestamp.proto";
 
 service CompaniesService {
-  rpc ReserveFromBot(ReserveFromBotRequest) returns (ReserveFromBotResponse);
+  rpc Reserve(ReserveRequest) returns (ReserveResponse);
 }
 
-//ReserveFromBot ----------------------------------------------------------------------------
-message ReserveFromBotRequest {
-  int64 bot_id = 1  [(buf.validate.field).int64.gt = 0];
-  google.protobuf.Timestamp datetime = 2  [(buf.validate.field).timestamp.gt_now = true];
+//Reserve ----------------------------------------------------------------------------
+message ReserveRequest {
+  int64 studio_id = 1  [(buf.validate.field).int64.gt = 0];
+  int64 user_id = 2  [(buf.validate.field).int64.gt = 0];
+  int64 service_id = 3  [(buf.validate.field).int64.gt = 0];
+  google.protobuf.Timestamp datetime = 4  [(buf.validate.field).timestamp.gt_now = true];
 }
 
-message ReserveFromBotResponse {
+message ReserveResponse {
 }
