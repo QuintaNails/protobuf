@@ -63,11 +63,12 @@ jobs:
         NEW_COMMIT_HASH=$(git rev-parse HEAD)
         echo "Pushed changes: [$NEW_COMMIT_HASH](https://github.com/${{ github.repository }}/commit/$NEW_COMMIT_HASH)"  >> $GITHUB_STEP_SUMMARY
 
-    - name: Push swagger file to artifact
-      if: steps.check-changes.outputs.HAS_CHANGED == 'true'
-      run: |
-        cp -r ./swagger/apidocs.swagger.json $GITHUB_WORKSPACE/swagger.json
-        echo "::set-output name=swagger_file::${GITHUB_WORKSPACE}/swagger.json"
+
+    - name: Upload swagger file to artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: swagger.json
+        path: ./swagger/apidocs.swagger.json
 
   js-client:
     runs-on: ubuntu-latest
@@ -78,13 +79,13 @@ jobs:
       - name: Download Swagger File Artifact
         uses: actions/download-artifact@v3
         with:
-          name: swagger_file
+          name: swagger.json
         continue-on-error: true
 
       - name: Check if Artifact exists
         run: |
-          if [ ! -f swagger_file.yaml ]; then
-            echo "swagger_file.yaml not found, skipping code generation."
+          if [ ! -f swagger.json ]; then
+            echo "swagger.json not found, skipping code generation."
             exit 0
           fi
 
