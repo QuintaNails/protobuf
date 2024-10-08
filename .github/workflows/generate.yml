@@ -69,32 +69,3 @@ jobs:
       with:
         name: swagger.json
         path: ./swagger/apidocs.swagger.json
-
-  js-client:
-    runs-on: ubuntu-latest
-
-    needs: buf
-
-    steps:
-      - name: Download Swagger File Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: swagger.json
-        continue-on-error: true
-
-      - name: Check if Artifact exists
-        run: |
-          if [ ! -f swagger.json ]; then
-            echo "swagger.json not found, skipping code generation."
-            exit 0
-          fi
-
-      - name: Run Swagger Codegen
-        uses: swagger-api/swagger-codegen/.github/actions/generate/action.yml
-        with:
-          language: javascript
-          job-name: ${{ env.JOB_NAME }}
-          spec-url: swagger.json
-
-      - name: List generated files
-        run: ls -R ./client/
