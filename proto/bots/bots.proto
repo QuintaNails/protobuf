@@ -29,7 +29,7 @@ message AuthByInitDataResponse {
 //AddBot ----------------------------------------------------------------------------
 message AddBotRequest {
   string token = 1  [(buf.validate.field).string.len = 46];
-  int64 studio_id = 2  [(buf.validate.field).uint64.gt = 0];
+  int64 studio_id = 2  [(buf.validate.field).int64.gt = 0];
 }
 
 message AddBotResponse {
