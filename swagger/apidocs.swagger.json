@@ -185,6 +185,10 @@
         },
         "username": {
           "type": "string"
+        },
+        "studioId": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
