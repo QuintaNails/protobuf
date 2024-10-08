@@ -1,6 +1,5 @@
 name: Generate
-env:
-  GO_VERSION: '1.23'
+
 on:
   push:
 
@@ -9,6 +8,8 @@ permissions:
 
 jobs:
   buf:
+    env:
+      GO_VERSION: '1.23'
     runs-on: ubuntu-latest
 
     steps:
