@@ -62,3 +62,35 @@ jobs:
 
         NEW_COMMIT_HASH=$(git rev-parse HEAD)
         echo "Pushed changes: [$NEW_COMMIT_HASH](https://github.com/${{ github.repository }}/commit/$NEW_COMMIT_HASH)"  >> $GITHUB_STEP_SUMMARY
+
+    - name: Push swagger file to artifact
+      if: steps.check-changes.outputs.HAS_CHANGED == 'true'
+      run: |
+        cp -r ./swagger/apidocs.swagger.json $GITHUB_WORKSPACE/swagger.json
+        echo "::set-output name=swagger_file::${GITHUB_WORKSPACE}/swagger.json"
+
+  js-client:
+    runs-on: ubuntu-latest
+
+    needs: buf
+
+    steps:
+      - name: Download Swagger File Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: swagger_file
+
+      - name: Install swagger-codegen
+        run: |
+          wget https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.21/swagger-codegen-cli-2.4.21.jar -O swagger-codegen-cli.jar
+          alias swagger-codegen="java -jar swagger-codegen-cli.jar"
+
+      - name: Run Swagger Codegen
+        run: |
+          swagger-codegen generate \
+          -i swagger_file.yaml \
+          -l js \
+          -o ./client/
+
+      - name: List generated files
+        run: ls -R ./client/
