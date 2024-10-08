@@ -89,17 +89,12 @@ jobs:
             exit 0
           fi
 
-      - name: Install swagger-codegen
-        run: |
-          wget https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.21/swagger-codegen-cli-2.4.21.jar -O swagger-codegen-cli.jar
-          alias swagger-codegen="java -jar swagger-codegen-cli.jar"
-
       - name: Run Swagger Codegen
-        run: |
-          swagger-codegen generate \
-          -i swagger_file.yaml \
-          -l js \
-          -o ./client/
+        uses: swagger-api/swagger-codegen/.github/actions/generate/action.yml
+        with:
+          language: javascript
+          job-name: ${{ env.JOB_NAME }}
+          spec-url: swagger.json
 
       - name: List generated files
         run: ls -R ./client/
