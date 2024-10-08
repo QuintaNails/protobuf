@@ -79,6 +79,14 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: swagger_file
+        continue-on-error: true
+
+      - name: Check if Artifact exists
+        run: |
+          if [ ! -f swagger_file.yaml ]; then
+            echo "swagger_file.yaml not found, skipping code generation."
+            exit 0
+          fi
 
       - name: Install swagger-codegen
         run: |
