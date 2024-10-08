@@ -4,11 +4,11 @@ All URIs are relative to */*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**companiesServiceReserveFromBot**](CompaniesServiceApi.md#companiesServiceReserveFromBot) | **POST** /companies.CompaniesService/ReserveFromBot | 
+[**companiesServiceReserve**](CompaniesServiceApi.md#companiesServiceReserve) | **POST** /companies.CompaniesService/Reserve | 
 
-<a name="companiesServiceReserveFromBot"></a>
-# **companiesServiceReserveFromBot**
-> CompaniesReserveFromBotResponse companiesServiceReserveFromBot(body)
+<a name="companiesServiceReserve"></a>
+# **companiesServiceReserve**
+> CompaniesReserveResponse companiesServiceReserve(body)
 
 
 
@@ -17,9 +17,9 @@ Method | HTTP request | Description
 import {Botsbotsproto} from 'botsbotsproto';
 
 let apiInstance = new Botsbotsproto.CompaniesServiceApi();
-let body = new Botsbotsproto.CompaniesReserveFromBotRequest(); // CompaniesReserveFromBotRequest | 
+let body = new Botsbotsproto.CompaniesReserveRequest(); // CompaniesReserveRequest | 
 
-apiInstance.companiesServiceReserveFromBot(body, (error, data, response) => {
+apiInstance.companiesServiceReserve(body, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -32,11 +32,11 @@ apiInstance.companiesServiceReserveFromBot(body, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**CompaniesReserveFromBotRequest**](CompaniesReserveFromBotRequest.md)|  | 
+ **body** | [**CompaniesReserveRequest**](CompaniesReserveRequest.md)|  | 
 
 ### Return type
 
-[**CompaniesReserveFromBotResponse**](CompaniesReserveFromBotResponse.md)
+[**CompaniesReserveResponse**](CompaniesReserveResponse.md)
 
 ### Authorization
 

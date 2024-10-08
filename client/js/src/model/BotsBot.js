@@ -44,6 +44,8 @@ export default class BotsBot {
         obj.firstName = ApiClient.convertToType(data['firstName'], 'String');
       if (data.hasOwnProperty('username'))
         obj.username = ApiClient.convertToType(data['username'], 'String');
+      if (data.hasOwnProperty('studioId'))
+        obj.studioId = ApiClient.convertToType(data['studioId'], 'String');
     }
     return obj;
   }
@@ -63,4 +65,9 @@ BotsBot.prototype.firstName = undefined;
  * @member {String} username
  */
 BotsBot.prototype.username = undefined;
+
+/**
+ * @member {String} studioId
+ */
+BotsBot.prototype.studioId = undefined;
 

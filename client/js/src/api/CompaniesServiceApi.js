@@ -13,8 +13,8 @@
  *
  */
 import ApiClient from "../ApiClient";
-import CompaniesReserveFromBotRequest from '../model/CompaniesReserveFromBotRequest';
-import CompaniesReserveFromBotResponse from '../model/CompaniesReserveFromBotResponse';
+import CompaniesReserveRequest from '../model/CompaniesReserveRequest';
+import CompaniesReserveResponse from '../model/CompaniesReserveResponse';
 import RpcStatus from '../model/RpcStatus';
 
 /**
@@ -37,24 +37,24 @@ export default class CompaniesServiceApi {
     }
 
     /**
-     * Callback function to receive the result of the companiesServiceReserveFromBot operation.
-     * @callback moduleapi/CompaniesServiceApi~companiesServiceReserveFromBotCallback
+     * Callback function to receive the result of the companiesServiceReserve operation.
+     * @callback moduleapi/CompaniesServiceApi~companiesServiceReserveCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/CompaniesReserveFromBotResponse{ data The data returned by the service call.
+     * @param {module:model/CompaniesReserveResponse{ data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * @param {module:model/CompaniesReserveFromBotRequest} body 
-     * @param {module:api/CompaniesServiceApi~companiesServiceReserveFromBotCallback} callback The callback function, accepting three arguments: error, data, response
+     * @param {module:model/CompaniesReserveRequest} body 
+     * @param {module:api/CompaniesServiceApi~companiesServiceReserveCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    companiesServiceReserveFromBot(body, callback) {
+    companiesServiceReserve(body, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
       if (body === undefined || body === null) {
-        throw new Error("Missing the required parameter 'body' when calling companiesServiceReserveFromBot");
+        throw new Error("Missing the required parameter 'body' when calling companiesServiceReserve");
       }
 
       let pathParams = {
@@ -73,10 +73,10 @@ export default class CompaniesServiceApi {
       let authNames = [];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = CompaniesReserveFromBotResponse;
+      let returnType = CompaniesReserveResponse;
 
       return this.apiClient.callApi(
-        '/companies.CompaniesService/ReserveFromBot', 'POST',
+        '/companies.CompaniesService/Reserve', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );

@@ -18,8 +18,8 @@ import BotsAddBotResponse from './model/BotsAddBotResponse';
 import BotsBot from './model/BotsBot';
 import BotsSetupBotRequest from './model/BotsSetupBotRequest';
 import BotsSetupBotResponse from './model/BotsSetupBotResponse';
-import CompaniesReserveFromBotRequest from './model/CompaniesReserveFromBotRequest';
-import CompaniesReserveFromBotResponse from './model/CompaniesReserveFromBotResponse';
+import CompaniesReserveRequest from './model/CompaniesReserveRequest';
+import CompaniesReserveResponse from './model/CompaniesReserveResponse';
 import ProtobufAny from './model/ProtobufAny';
 import RpcStatus from './model/RpcStatus';
 import UsersGetByTelegramIDRequest from './model/UsersGetByTelegramIDRequest';
@@ -98,16 +98,16 @@ export {
     BotsSetupBotResponse,
 
     /**
-     * The CompaniesReserveFromBotRequest model constructor.
-     * @property {module:model/CompaniesReserveFromBotRequest}
+     * The CompaniesReserveRequest model constructor.
+     * @property {module:model/CompaniesReserveRequest}
      */
-    CompaniesReserveFromBotRequest,
+    CompaniesReserveRequest,
 
     /**
-     * The CompaniesReserveFromBotResponse model constructor.
-     * @property {module:model/CompaniesReserveFromBotResponse}
+     * The CompaniesReserveResponse model constructor.
+     * @property {module:model/CompaniesReserveResponse}
      */
-    CompaniesReserveFromBotResponse,
+    CompaniesReserveResponse,
 
     /**
      * The ProtobufAny model constructor.

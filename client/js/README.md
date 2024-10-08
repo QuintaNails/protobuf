@@ -71,7 +71,7 @@ Please follow the [installation](#installation) instruction and execute the foll
 var Botsbotsproto = require('botsbotsproto');
 
 var api = new Botsbotsproto.CompaniesServiceApi()
-var body = new Botsbotsproto.CompaniesReserveFromBotRequest(); // {CompaniesReserveFromBotRequest} 
+var body = new Botsbotsproto.CompaniesReserveRequest(); // {CompaniesReserveRequest} 
 
 var callback = function(error, data, response) {
   if (error) {
@@ -80,7 +80,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.companiesServiceReserveFromBot(body, callback);
+api.companiesServiceReserve(body, callback);
 ```
 
 ## Documentation for API Endpoints
@@ -89,7 +89,7 @@ All URIs are relative to */*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*Botsbotsproto.CompaniesServiceApi* | [**companiesServiceReserveFromBot**](docs/CompaniesServiceApi.md#companiesServiceReserveFromBot) | **POST** /companies.CompaniesService/ReserveFromBot | 
+*Botsbotsproto.CompaniesServiceApi* | [**companiesServiceReserve**](docs/CompaniesServiceApi.md#companiesServiceReserve) | **POST** /companies.CompaniesService/Reserve | 
 *Botsbotsproto.TelegramBotsServiceApi* | [**telegramBotsServiceAddBot**](docs/TelegramBotsServiceApi.md#telegramBotsServiceAddBot) | **POST** /bots.TelegramBotsService/AddBot | 
 *Botsbotsproto.TelegramBotsServiceApi* | [**telegramBotsServiceSetupBot**](docs/TelegramBotsServiceApi.md#telegramBotsServiceSetupBot) | **POST** /bots.TelegramBotsService/SetupBot | 
 *Botsbotsproto.UsersServiceApi* | [**usersServiceGetByTelegramID**](docs/UsersServiceApi.md#usersServiceGetByTelegramID) | **POST** /users.UsersService/GetByTelegramID | 
@@ -101,8 +101,8 @@ Class | Method | HTTP request | Description
  - [Botsbotsproto.BotsBot](docs/BotsBot.md)
  - [Botsbotsproto.BotsSetupBotRequest](docs/BotsSetupBotRequest.md)
  - [Botsbotsproto.BotsSetupBotResponse](docs/BotsSetupBotResponse.md)
- - [Botsbotsproto.CompaniesReserveFromBotRequest](docs/CompaniesReserveFromBotRequest.md)
- - [Botsbotsproto.CompaniesReserveFromBotResponse](docs/CompaniesReserveFromBotResponse.md)
+ - [Botsbotsproto.CompaniesReserveRequest](docs/CompaniesReserveRequest.md)
+ - [Botsbotsproto.CompaniesReserveResponse](docs/CompaniesReserveResponse.md)
  - [Botsbotsproto.ProtobufAny](docs/ProtobufAny.md)
  - [Botsbotsproto.RpcStatus](docs/RpcStatus.md)
  - [Botsbotsproto.UsersGetByTelegramIDRequest](docs/UsersGetByTelegramIDRequest.md)

@@ -40,6 +40,8 @@ export default class BotsAddBotRequest {
       obj = obj || new BotsAddBotRequest();
       if (data.hasOwnProperty('token'))
         obj.token = ApiClient.convertToType(data['token'], 'String');
+      if (data.hasOwnProperty('studioId'))
+        obj.studioId = ApiClient.convertToType(data['studioId'], 'String');
     }
     return obj;
   }
@@ -49,4 +51,9 @@ export default class BotsAddBotRequest {
  * @member {String} token
  */
 BotsAddBotRequest.prototype.token = undefined;
+
+/**
+ * @member {String} studioId
+ */
+BotsAddBotRequest.prototype.studioId = undefined;
 
