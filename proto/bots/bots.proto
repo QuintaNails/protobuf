@@ -14,6 +14,7 @@ message Bot {
   int64 id = 1;
   string first_name = 2;
   string username = 3;
+  int64 studio_id = 4;
 }
 
 //AuthByInitData --------------------------------------------------------------------
