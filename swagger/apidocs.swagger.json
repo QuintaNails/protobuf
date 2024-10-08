@@ -54,38 +54,6 @@
         ]
       }
     },
-    "/bots.TelegramBotsService/Reserve": {
-      "post": {
-        "operationId": "TelegramBotsService_Reserve",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/botsReserveResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/botsReserveRequest"
-            }
-          }
-        ],
-        "tags": [
-          "TelegramBotsService"
-        ]
-      }
-    },
     "/bots.TelegramBotsService/SetupBot": {
       "post": {
         "operationId": "TelegramBotsService_SetupBot",
@@ -189,6 +157,10 @@
       "properties": {
         "token": {
           "type": "string"
+        },
+        "studioId": {
+          "type": "string",
+          "format": "uint64"
         }
       },
       "title": "AddBot ----------------------------------------------------------------------------"
@@ -215,31 +187,6 @@
           "type": "string"
         }
       }
-    },
-    "botsReserveRequest": {
-      "type": "object",
-      "properties": {
-        "botId": {
-          "type": "string",
-          "format": "int64"
-        },
-        "userId": {
-          "type": "string",
-          "format": "int64"
-        },
-        "serviceId": {
-          "type": "string",
-          "format": "int64"
-        },
-        "datetime": {
-          "type": "string",
-          "format": "date-time"
-        }
-      },
-      "title": "Reserve ----------------------------------------------------------------------------"
-    },
-    "botsReserveResponse": {
-      "type": "object"
     },
     "botsSetupBotRequest": {
       "type": "object",
